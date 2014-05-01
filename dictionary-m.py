@@ -30,7 +30,11 @@ class mongo:
  def update(self,word,mean):
   new_user_doc={"word":word,"mean":mean}
   self.dbh.users.update({"word":word}, new_user_doc, safe=True)
-
+ def find(self,case):
+   #print self.dbh.users.find_one({"word":"example"})# for find a dictionary 
+  if self.dbh.users.find({"word":case}) :
+   return True
+  return False
 #import data from database
 #classes and other objects 
 class InputDialog(QtGui.QWidget):
@@ -56,7 +60,7 @@ class InputDialog(QtGui.QWidget):
   self.label = QtGui.QLineEdit(self)
   self.label.setGeometry(130,40,260,30)
   self.ba = QtGui.QLabel(self)
-  self.ba.setPixmap(QtGui.QPixmap('dic/png1.png'))
+  self.ba.setPixmap(QtGui.QPixmap('png1.png'))
   self.mess=QtGui.QMessageBox(self)
   #self.errorMessageDialog = QtGui.QErrorMessage(self)
   self.dialogbox=QtGui.QInputDialog()
@@ -65,11 +69,11 @@ class InputDialog(QtGui.QWidget):
   self.lbl5.setReadOnly(True)
   self.lbl5.setGeometry(30,150,430,400)
   self.setStyleSheet("QWidget {border:inset;border-radius:3px;color :black;font-weight:500; font-size: 10pt}QPushButton{color:#099000;border-style: outset;border-width: 2px;border-radius: 10px;border-color: beige;font: bold 14px;min-width: 10em;padding: 6px;}QLineEdit{background-color:white; color:black}QTextEdit{background-color:#ffffff; color:#000000}")
-  M=mongo()
+  self.M=mongo()
   #bottom = QtGui.QFrame(self)
   #bottom.setFrameShape(QtGui.QFrame.StyledPanel)
   #bottom.setGeometry(30,150,430,400)
-  with open('dic/Words.txt','a+') as f:
+  with open('Words.txt','a+') as f:
    b= sum(1 for line in f)
    lbl4 = QtGui.QLabel('['+ str(b)+']'+	' word exist in your dict...!', self)
    lbl4.move(110,125)
@@ -78,29 +82,27 @@ class InputDialog(QtGui.QWidget):
     flag=True
     pox=2
     inword=(self.label.text()).toLower()
-    with open('dic/Words.txt','a+') as f:
+    with open('Words.txt','a+') as f:
      for line in f:
       if line==(inword+'\n'):
-       self.mess.information(self,"Word exist in personal words !", M.prin(str(inword)))
+       self.mess.information(self,"Word exist in personal words !", self.M.prin(str(inword)))
        #self.label.clear()
        flag=False
        break
      if(flag):
-      for i in lito:
-       if i==(inword):
+      if self.M.find(str(inword)):
         self.lbl5.clear()
-        self.lbl5.append(M.prin(str(inword)))
+        self.lbl5.append(self.M.prin(str(inword)))
         f.write(inword)
         f.write('\n')
         flag=False
-        break
        #self.msg.setText(dic1[i].decode('utf8'))
        #self.msg.exec_()
        #self.label.clear()
      if(flag):
       text,ok=self.dialogbox.getText(QtGui.QInputDialog(),'Create Persian meaning','Enter meaning here: ',QtGui.QLineEdit.Normal,'meaning')
       if ok :  
-       M.ins(str(inword),unicode(text))
+       self.M.ins(str(inword),unicode(text))
        #self.label.clear()
        f.write(inword)
        f.write('\n')
@@ -110,7 +112,7 @@ class InputDialog(QtGui.QWidget):
   inword=(self.label.text()).toLower()
   text,ok=self.dialogbox1.getText(QtGui.QInputDialog(),'Update meaning','Enter meaning here: ',QtGui.QLineEdit.Normal,M.prin((str(inword))))
   if ok :
-   M.update(str(inword),unicode(text))
+   self.M.update(str(inword),unicode(text))
  
 
  def keyPressEvent(self, e):
