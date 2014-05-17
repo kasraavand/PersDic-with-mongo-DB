@@ -1,3 +1,43 @@
+#!/usr/bin/env python
+
+# -*- coding: utf-8 -*-
+#
+# SCRIPT: PERSDIC
+# AUTHOR: Kasra Ahmadvand // kasra.ahmadvand@gmail.com
+# DATE:   2013/7/20
+# REV:    1.1.0.T (Valid are A, B, T and P)
+#         (For Alpha, Beta, Test and Production)
+#
+# PLATFORM: (SPECIFY: all linux distros)
+#
+#
+# PURPOSE: Make a offline persisan dictionary for linux   
+#                 
+#               
+#
+# REV LIST:
+#       DATE: 
+#       BY:
+#       MODIFICATION: 
+#
+#
+# set -n  # Uncomment to check your syntax, without execution.
+#         # NOTE: Do not forget to put the comment back in or
+#         #       the shell script will not execute!
+# set -x  # Uncomment to debug this shell script
+#
+##########################################################
+########### DEFINE FILES AND VARIABLES:###################
+#Generic_English_Persian.m2 : a free word data base ! 
+#dic1 :
+#a:
+#item:
+##########################################################
+##########################################################
+############### FUNCTIONS: ###################
+#
+##########################################################
+##########################################################
 from datetime import datetime
 from pymongo import Connection
 from pymongo.errors import ConnectionFailure
@@ -82,33 +122,31 @@ class InputDialog(QtGui.QWidget):
     flag=True
     pox=2
     inword=(self.label.text()).toLower()
-    with open('Words.txt','a+') as f:
-     for line in f:
-      if line==(inword+'\n'):
-       self.mess.information(self,"Word exist in personal words !", self.M.prin(str(inword)))
+    if self.M.find(str(inword)):
+     with open('Words.txt','a+') as f:
+      for line in f:
+       if line==(inword+'\n'):
+        self.mess.information(self,"Word exist in personal words !", self.M.prin(str(inword)))
        #self.label.clear()
-       flag=False
-       break
-     if(flag):
-      if self.M.find(str(inword)):
+        break
+       else:
         self.lbl5.clear()
         self.lbl5.append(self.M.prin(str(inword)))
         f.write(inword)
         f.write('\n')
-        flag=False
        #self.msg.setText(dic1[i].decode('utf8'))
        #self.msg.exec_()
        #self.label.clear()
-     if(flag):
-      text,ok=self.dialogbox.getText(QtGui.QInputDialog(),'Create Persian meaning','Enter meaning here: ',QtGui.QLineEdit.Normal,'meaning')
-      if ok :  
+    else:
+     text,ok=self.dialogbox.getText(QtGui.QInputDialog(),'Create Persian meaning','Enter meaning here: ',QtGui.QLineEdit.Normal,'meaning')
+     if ok :  
        self.M.ins(str(inword),unicode(text))
        #self.label.clear()
        f.write(inword)
        f.write('\n')
 
  def update(self):
-
+  M=mongo()
   inword=(self.label.text()).toLower()
   text,ok=self.dialogbox1.getText(QtGui.QInputDialog(),'Update meaning','Enter meaning here: ',QtGui.QLineEdit.Normal,M.prin((str(inword))))
   if ok :
