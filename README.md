@@ -3,7 +3,7 @@
 ## How to produce :
 
 This software initially was created to store the words I encountered to them during the reading ,that i didnt know the English meaning of it !
-And gradually to obviation the need for translation ,became a dictionary !
+ and gradually to obviation the need for translation ,became a dictionary !
 
 ## Features:
 
