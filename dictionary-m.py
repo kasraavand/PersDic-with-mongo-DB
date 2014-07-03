@@ -74,7 +74,8 @@ class mongo:
    #print self.dbh.users.find_one({"word":"example"})# for find a dictionary 
   if self.dbh.users.find({"word":case}) :
    return True
-  return False
+  else:
+   return False
 #import data from database
 #classes and other objects 
 class InputDialog(QtGui.QWidget):
@@ -123,13 +124,7 @@ class InputDialog(QtGui.QWidget):
     pox=2
     inword=(self.label.text()).toLower()
     if self.M.find(str(inword)):
-     with open('Words.txt','a+') as f:
-      for line in f:
-       if line==(inword+'\n'):
-        self.mess.information(self,"Word exist in personal words !", self.M.prin(str(inword)))
-       #self.label.clear()
-        break
-       else:
+      with open('Words.txt','a+') as f:
         self.lbl5.clear()
         self.lbl5.append(self.M.prin(str(inword)))
         f.write(inword)
