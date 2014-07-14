@@ -72,10 +72,9 @@ class mongo:
   self.dbh.users.update({"word":word}, new_user_doc, safe=True)
  def find(self,case):
    #print self.dbh.users.find_one({"word":"example"})# for find a dictionary 
-  if self.dbh.users.find({"word":case}) :
+  if self.dbh.users.find_one({"word":case}) :
    return True
-  else:
-   return False
+  return False
 #import data from database
 #classes and other objects 
 class InputDialog(QtGui.QWidget):
@@ -115,20 +114,30 @@ class InputDialog(QtGui.QWidget):
   #bottom.setFrameShape(QtGui.QFrame.StyledPanel)
   #bottom.setGeometry(30,150,430,400)
   with open('Words.txt','a+') as f:
-   b= sum(1 for line in f)
-   lbl4 = QtGui.QLabel('['+ str(b)+']'+	' word exist in your dict...!', self)
-   lbl4.move(110,125)
-   f.close()
+   if len(f.read()) == 0 : 
+    f.write("#SCRIPT: PERSDIC\n# AUTHOR: Kasra Ahmadvand // kasra.ahmadvand@gmail.com\n# DATE:   2013/7/20\n# REV:    1.1.0.T (Valid are A, B, T and P)\n#         (For Alpha, Beta, Test and Production)')\n************************ WORDS LIST ************************\n") 
+   else:
+    b= sum(1 for line in f)
+    lbl4 = QtGui.QLabel('['+ str(b)+']'+	' word exist in your dict...!', self)
+    lbl4.move(110,125)
+    f.close()
  def insert(self):
     flag=True
     pox=2
     inword=(self.label.text()).toLower()
     if self.M.find(str(inword)):
-      with open('Words.txt','a+') as f:
-        self.lbl5.clear()
-        self.lbl5.append(self.M.prin(str(inword)))
-        f.write(inword)
-        f.write('\n')
+     with open('Words.txt','a+') as f:
+      for line in f:
+       if line==(str(inword)+'\n'):
+        self.mess.information(self,"Word exist in personal words !", self.M.prin(str(inword)))
+        #self.label.clear()
+        flag=False
+        break
+      if flag:
+       self.lbl5.clear()
+       self.lbl5.append(self.M.prin(str(inword)))
+       f.write(str(inword))
+       f.write('\n')
        #self.msg.setText(dic1[i].decode('utf8'))
        #self.msg.exec_()
        #self.label.clear()
@@ -137,8 +146,9 @@ class InputDialog(QtGui.QWidget):
      if ok :  
        self.M.ins(str(inword),unicode(text))
        #self.label.clear()
-       f.write(inword)
-       f.write('\n')
+       with open('Words.txt','a+') as f:
+        f.write(inword)
+        f.write('\n')
 
  def update(self):
   M=mongo()
