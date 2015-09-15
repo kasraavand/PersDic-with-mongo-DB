@@ -1,6 +1,6 @@
 ##English to Persian Dictionary with Python and PyQt for LINUX 
 
-## How to produce :
+## Production method :
 
 This software initially was created to store the words I encountered to them during the reading ,that i didnt know the English meaning of it !
  and gradually to obviation the need for translation ,became a dictionary !
