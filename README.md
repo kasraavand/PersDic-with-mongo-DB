@@ -2,8 +2,7 @@
 
 ## Production method :
 
-This software initially was created to store the words I encountered to them during the reading ,that i didnt know the English meaning of it !
- and gradually to obviation the need for translation ,became a dictionary !
+This software initially was created to store the words that I was encountered, during the reading ,that I didnt knew its English meaning! and gradually, for obviation the needs of translation ,it became a dictionary !
 
 ## Features:
 
@@ -15,9 +14,7 @@ This software initially was created to store the words I encountered to them dur
 - And ...
 
 
-##Thanks of all persons those who improve and enrich the database with edit words and meanings of words Including the Literature and English Language alumni at Universitys of Shirazs and Malayer! (In future software updates ,the names will be added!)
-
-- Finally, I have to say that the software has many shortcomings that I will fix them with the whole shebang and I ask all readers of this text that have a expertise, However at low levels help to improve the code ,even by suggestions or censure!Thank you!
+- Finally, I have to say that the software has many shortcomings that I will fix them with the whole shebang and I ask all readers of this text that have a expertise, However at low levels, help to improve the code ,even by suggestions or censure!Thank you!
 
 ##Resources:
 -http://srinikom.github.io/pyside-docs/index.html
@@ -43,7 +40,6 @@ This software initially was created to store the words I encountered to them dur
 
 ----------------------------------------------------------------------------------
 
-از تمامی کسانی که با ویرایش لغات باعث بهبود و غنی تر شدن پایگاه داده و معانی واژه ها شدند از جمله دانش آموختگان ادبیات و زبان انگلیسی دانشگاه شیراز و دانشگاه ملایر تشکر میکنم ! همچنین تمامی دوستانی که در آینده در ویرایش معانی مشارکت می کنند!  
 
 -در آخر باید بگویم که این نرم افزار کاستی های زیادی دارد که با نهایت تلاش سعی در رفع آنها خواهم کرد و از تمامی خوانندگان این متن هم تقاضا دارم اگر خود تخصص لازم رو دارند هرچند کم به بهبود کد برنامه کمک کنند حتی در حد پیشنهاد و انتقاد!باتشکر!
 
